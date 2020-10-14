@@ -9,18 +9,34 @@ import {
 
 
 function SearchMovie() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [movies, setMovies]= useState([])
+  const [search, setSearch] = useState({
+    searchTerm: '',
+    movies: []
+  })
+  const API = process.env.REACT_APP_API_KEY
   
   const handleChange = (e) => {
-    setSearchTerm(e.target.value)
-  }
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log(searchTerm);
+
+    setSearch({
+      searchTerm: e.target.value
+    })
   }
   
- 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API}&query=${search.searchTerm}`)
+      .then(response => response.json())
+      .then(data => {
+        setSearch(prevState => ({
+          ...prevState,
+          movies: [...data.results]
+        }))
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   return (
     <section>
       <Container>
@@ -30,7 +46,7 @@ function SearchMovie() {
               <InputGroup.Text id={'search-addon'}>Enter title</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              value={searchTerm}
+              value={search.searchTerm}
               onChange={handleChange}
               type={'text'}
               placeholder={'e.g. Spiderman'}
