@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {Container, Navbar, NavLink} from 'react-bootstrap'
+import React from 'react';
+import {Navbar, NavLink} from 'react-bootstrap'
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
-import {BrowserRouter as Router} from "react-router-dom";
 import {LinkContainer} from 'react-router-bootstrap'
 
 function Header() {
