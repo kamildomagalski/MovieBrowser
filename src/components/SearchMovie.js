@@ -16,9 +16,11 @@ function SearchMovie() {
   const API = process.env.REACT_APP_API_KEY
   
   const handleChange = (e) => {
-    setSearch({
-      searchTerm: e.target.value
-    })
+    const { value }= e.target
+    setSearch(prevState => ({
+      ...prevState,
+      searchTerm: value
+    }))
   }
   
   const handleSubmit = (e) => {
@@ -32,7 +34,7 @@ function SearchMovie() {
           totalResults: data.total_results,
           currentPage: 1
         }))
-        clearSearch()
+
       })
       .catch(error => {
         console.log(error);
