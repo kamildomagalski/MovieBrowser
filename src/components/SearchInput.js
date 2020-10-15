@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
 
 
-function SearchInput({search, handleChange, handleSubmit}) {
+function SearchInput({searchTerm, handleChange, handleSubmit}) {
  return (
      <Form onSubmit={handleSubmit} className={'mt-3'}>
        <InputGroup className={'mb-3'}>
@@ -10,7 +10,7 @@ function SearchInput({search, handleChange, handleSubmit}) {
            <InputGroup.Text id={'search-addon'}>Enter title</InputGroup.Text>
          </InputGroup.Prepend>
          <FormControl
-           value={search.searchTerm}
+           value={searchTerm}
            onChange={handleChange}
            type={'text'}
            placeholder={'e.g. Spiderman'}

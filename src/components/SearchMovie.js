@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import MovieList from "./MovieList";
-import SearchInput from "./SearchInput";
 import {Container} from "react-bootstrap";
 
+import MovieList from "./MovieList";
+import SearchInput from "./SearchInput";
+import PaginationBar from "./PaginationBar"
 
 function SearchMovie() {
   const [search, setSearch] = useState({
@@ -11,7 +12,7 @@ function SearchMovie() {
     totalResults: 0,
     currentPage: 1
   })
-  
+  console.log(search);
   const API = process.env.REACT_APP_API_KEY
   
   const handleChange = (e) => {
@@ -28,7 +29,8 @@ function SearchMovie() {
         setSearch(prevState => ({
           ...prevState,
           movies: [...data.results],
-          totalResults: data.total_results
+          totalResults: data.total_results,
+          currentPage: 1
         }))
         clearSearch()
       })
@@ -57,10 +59,14 @@ function SearchMovie() {
         console.log(error);
       });
   }
+  const numberPages= Math.floor(search.totalResults / 20)
   
   return (
     <Container>
       <SearchInput search={search} handleChange={handleChange} handleSubmit={handleSubmit}/>
+      {search.totalResults > 20
+        ?<PaginationBar pages={numberPages} nextPage={nextPage} currentPage={search.currentPage}/>
+        : null }
       <MovieList movies={search.movies}/>
     </Container>
   )
