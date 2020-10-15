@@ -3,10 +3,13 @@ import MovieList from "./MovieList";
 import SearchInput from "./SearchInput";
 import {Container} from "react-bootstrap";
 
+
 function SearchMovie() {
   const [search, setSearch] = useState({
     searchTerm: '',
-    movies: []
+    movies: [],
+    totalResults: 0,
+    currentPage: 1
   })
   
   const API = process.env.REACT_APP_API_KEY
@@ -24,7 +27,8 @@ function SearchMovie() {
       .then(data => {
         setSearch(prevState => ({
           ...prevState,
-          movies: [...data.results]
+          movies: [...data.results],
+          totalResults: data.total_results
         }))
         clearSearch()
       })
@@ -38,6 +42,20 @@ function SearchMovie() {
       ...prevState,
       searchTerm: ''
   }))
+  }
+  const nextPage= (pageNumber)=>{
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API}&query=${search.searchTerm}&page=${pageNumber}`)
+      .then(response => response.json())
+      .then(data => {
+        setSearch(prevState => ({
+          ...prevState,
+          movies: [...data.results],
+          currentPage: pageNumber
+        }))
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   
   return (
