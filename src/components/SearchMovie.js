@@ -1,22 +1,17 @@
 import React, {useState} from 'react';
-import {
-  Container,
-  InputGroup,
-  FormControl,
-  Button,
-  Form
-} from "react-bootstrap";
 import MovieList from "./MovieList";
+import SearchInput from "./SearchInput";
+import {Container} from "react-bootstrap";
 
 function SearchMovie() {
   const [search, setSearch] = useState({
     searchTerm: '',
     movies: []
   })
+  
   const API = process.env.REACT_APP_API_KEY
   
   const handleChange = (e) => {
-    
     setSearch({
       searchTerm: e.target.value
     })
@@ -36,32 +31,14 @@ function SearchMovie() {
         console.log(error);
       });
   }
-  console.log(search.movies);
+
   return (
-    <>
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <InputGroup className={'mb-3'}>
-          <InputGroup.Prepend>
-            <InputGroup.Text id={'search-addon'}>Enter title</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            value={search.searchTerm}
-            onChange={handleChange}
-            type={'text'}
-            placeholder={'e.g. Spiderman'}
-            aria-label={'title'}
-          />
-          <InputGroup.Append>
-            <Button variant={'outline-secondary'} type={'submit'}>Search</Button>
-          </InputGroup.Append>
-        </InputGroup>
-      </Form>
+      <SearchInput search={search} handleChange={handleChange} handleSubmit={handleSubmit}/>
+      <MovieList movies={search.movies}/>
     </Container>
-  <MovieList movies={search.movies}/>
-</>
-)
-  ;
+  )
+    ;
 }
 
 export default SearchMovie;

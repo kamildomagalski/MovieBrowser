@@ -10,7 +10,6 @@ function MovieList({movies}) {
   if (!movies) return null
   
   return (
-    <Container>
       <Row>
           {movies.map((movie) => {
             return (
@@ -19,7 +18,6 @@ function MovieList({movies}) {
           })
           }
       </Row>
-    </Container>
   );
 }
 
