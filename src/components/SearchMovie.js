@@ -26,12 +26,20 @@ function SearchMovie() {
           ...prevState,
           movies: [...data.results]
         }))
+        clearSearch()
       })
       .catch(error => {
         console.log(error);
       });
   }
-
+  
+  function clearSearch() {
+    setSearch(prevState => ({
+      ...prevState,
+      searchTerm: ''
+  }))
+  }
+  
   return (
     <Container>
       <SearchInput search={search} handleChange={handleChange} handleSubmit={handleSubmit}/>
