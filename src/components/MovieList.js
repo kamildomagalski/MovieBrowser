@@ -1,27 +1,23 @@
 import React from 'react';
 import {
   Container,
-  Row,
-  Col
+  Row
 } from "react-bootstrap";
 import Movie from "./Movie";
 
 function MovieList({movies}) {
   
+  if (!movies) return null
+  
   return (
     <Container>
       <Row>
-        <Col xs={12} md={8}>
-          {movies.map((movie) =>{
-            return(
+          {movies.map((movie) => {
+            return (
               <Movie key={movie.id} movie={movie}/>
             )
-          } )
-          
+          })
           }
-          
-          
-        </Col>
       </Row>
     </Container>
   );
