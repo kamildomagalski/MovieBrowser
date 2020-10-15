@@ -6,7 +6,7 @@ import {
   Button,
   Form
 } from "react-bootstrap";
-
+import MovieList from "./MovieList";
 
 function SearchMovie() {
   const [search, setSearch] = useState({
@@ -16,7 +16,7 @@ function SearchMovie() {
   const API = process.env.REACT_APP_API_KEY
   
   const handleChange = (e) => {
-
+    
     setSearch({
       searchTerm: e.target.value
     })
@@ -36,7 +36,7 @@ function SearchMovie() {
         console.log(error);
       });
   }
-
+  
   return (
     <section>
       <Container>
@@ -58,6 +58,7 @@ function SearchMovie() {
           </InputGroup>
         </Form>
       </Container>
+      <MovieList movies={search.movies}/>
     </section>
   );
 }
